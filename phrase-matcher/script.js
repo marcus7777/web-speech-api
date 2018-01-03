@@ -3,14 +3,10 @@ var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
 var phrases = [
-  'i love to sing because it\'s fun',
-  'where are you going',
-  'can I call you tomorrow',
-  'why did you talk while I was talking',
-  'she enjoys reading books and playing games',
-  'where are you going',
-  'have a great day',
-  'she sells seashells on the seashore'
+  'next',
+  'done',
+  'edit',
+  'stop',
 ]
 
 var phrasePara = document.querySelector('.phrase');
@@ -34,12 +30,17 @@ function testSpeech() {
   resultPara.style.background = 'rgba(0,0,0,0.2)';
   diagnosticPara.textContent = '...diagnostic messages';
 
-  var grammar = '#JSGF V1.0; grammar phrase; public <phrase> = ' + phrase +';';
-  var recognition = new SpeechRecognition();
-  var speechRecognitionList = new SpeechGrammarList();
-  speechRecognitionList.addFromString(grammar, 1);
-  recognition.grammars = speechRecognitionList;
-  recognition.lang = 'en-US';
+  
+  var recognition = new SpeechRecognition()
+  var speechRecognitionList = new SpeechGrammarList()
+  
+  var grammar = '#JSGF V1.0; grammar phrase; public <phrase> = ' + phrases.join(" | ") +';'
+  
+  speechRecognitionList.addFromString(grammar, 1)
+
+  
+  recognition.grammars = speechRecognitionList
+  recognition.lang = 'en-UK';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
